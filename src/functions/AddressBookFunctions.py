@@ -1,6 +1,7 @@
 from src.interfaces.AddressBook import AddressBook
 from src.interfaces.Record import Record
 from src.interfaces.Contact import Birthday
+import pickle
 
 
 def input_error(handler):
@@ -77,3 +78,14 @@ def parse_input(user_input):
     command = parts[0].lower()
     args = parts[1:]
     return command, args
+
+def save_data(book, filename="addressbook.pkl"):
+    with open(filename, "wb") as f:
+        pickle.dump(book, f)
+
+def load_data(filename="addressbook.pkl"):
+    try:
+        with open(filename, "rb") as f:
+            return pickle.load(f)
+    except FileNotFoundError:
+        return AddressBook()

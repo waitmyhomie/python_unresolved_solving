@@ -1,15 +1,15 @@
-from src.interfaces.AddressBook import AddressBook
-from src.functions.AddressBookFunctions import add_contact, add_birthday, show_birthday, birthdays, parse_input
+from src.functions.AddressBookFunctions import add_contact, add_birthday, load_data, save_data, show_birthday, birthdays, parse_input
 
 
 def main():
-    book = AddressBook()
+    book = load_data()
     print("Welcome to the assistant bot!")
     while True:
         user_input = input("Enter a command: ")
         command, args = parse_input(user_input)
 
         if command in ["close", "exit"]:
+            save_data(book)
             print("Good bye!")
             break
 
