@@ -15,15 +15,16 @@ def input_error(handler):
 @input_error
 def add_contact(args, book: AddressBook):
     if len(args) < 2:
-        raise ValueError("Not enough arguments. Usage: add [name] [phone] [birthday (optional)] [address (optional)] [email (optional)]")
+        raise ValueError("Not enough arguments. Usage: create [name] [phone] [birthday (optional)] [address (optional)] [email (optional)]")
     
-    # Parsing the arguments
     name, phone, *rest = args
     birthday = rest[0] if len(rest) > 0 else None
     address = rest[1] if len(rest) > 1 else None
     email = rest[2] if len(rest) > 2 else None
 
-    # Validate and process each field
+    if len(phone) != 10 or not phone.isdigit():
+        return "Phone number must be exactly 10 digits. Contact not added."
+
     if birthday:
         try:
             Birthday(birthday)
@@ -34,7 +35,6 @@ def add_contact(args, book: AddressBook):
         if not Email.validate_email(email):
             return "Failed to add contact. Invalid email format."
 
-    # Search and update or create new record
     record = book.find(name)
     message = "Contact updated." if record else "Contact added."
 
@@ -42,7 +42,6 @@ def add_contact(args, book: AddressBook):
         record = Record(name)
         book.add_record(record)
 
-    # Add fields to the record if provided
     if birthday:
         try:
             record.add_birthday(birthday)
@@ -160,7 +159,7 @@ def edit_contact(args, book):
     elif field == "email":
         return record.change_email(new_value)
     elif field == "birthday":
-        return record.edit_birthday(new_value)
+        record.birthday = Birthday(new_value)
     elif field == "address":
         return record.edit_address(new_value)
     else:
