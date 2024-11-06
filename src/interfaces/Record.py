@@ -4,14 +4,15 @@ from datetime import datetime
 class Record:
     def __init__(self, name):
         self.name = Name(name)
-        self.phones = []
+        # refactor to use a list of phones
+        self.phones = None
         self.birthday = None
         self.address = None
         self.email = None
 
     def add_phone(self, phone_number):
-        phone = Phone(phone_number)
-        self.phones.append(phone)
+        self.phones = Phone(phone_number)
+   
 
     def remove_phone(self, phone_number):
         for phone in self.phones:
@@ -20,12 +21,9 @@ class Record:
                 return f"Phone {phone_number} removed."
         return f"Phone {phone_number} not found."
 
-    def edit_phone(self, old_phone, new_phone):
-        for phone in self.phones:
-            if phone.value == old_phone:
-                phone.value = new_phone
-                return f"Phone {old_phone} changed to {new_phone}."
-        return f"Phone {old_phone} not found."
+    def edit_phone(self,new_phone):
+        self.phones.value = new_phone
+        return f"Phone changed to {new_phone}."
     
     def add_address(self, address):
         self.address = Address(address)
@@ -71,11 +69,11 @@ class Record:
         return (next_birthday - today).days
     
     def __str__(self):
-            phones = "; ".join(p.value for p in self.phones)
+            phones = self.phones.value
             birthday = ""
             if self.birthday:
                 birthday = f", birthday: {self.birthday.value.strftime('%d.%m.%Y')}"  
             address = f", address: {self.address.value}" if self.address else ""
             email = f", email: {self.email.value}" if self.email else ""
             
-            return f"Contact name: {self.name.value}, phones: {phones}{birthday}{address}{email}"
+            return f"Contact name: {self.name.value}, phone: {phones}{birthday}{address}{email}"
