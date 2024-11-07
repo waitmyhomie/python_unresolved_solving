@@ -35,7 +35,6 @@ class Notes:
             print("There are no notes.")
         else:
             for note_id, content in self.notes.items():
-                print("Notes:")
                 print(f"ID: {note_id} - {content}")
 
 
