@@ -3,7 +3,7 @@ from src.functions.AddressBookFunctions import (
     show_birthday, show_birthdays_future,
     load_data, save_data, parse_input
 )
-from SearchContact import SearchContact  # Імпортуємо SearchContact
+from src.functions.SearchContact import SearchContact  # Імпортуємо SearchContact
 from colorama import init, Fore, Style
 
 init(autoreset=True)
