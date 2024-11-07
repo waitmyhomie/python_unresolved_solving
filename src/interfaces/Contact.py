@@ -1,6 +1,6 @@
 from .Field import Field
-
-import datetime
+import re
+from datetime import datetime
 
 class Name(Field):
     def __init__(self, value):
@@ -28,3 +28,16 @@ class Birthday(Field):
 class Address(Field):
     def __init__(self, value):
         super().__init__(value)
+
+class Email(Field):
+    def __init__(self, value):
+        if self.validate_email(value):
+            super().__init__(value)
+        else:
+            raise ValueError("Invalid email format.")
+
+    @staticmethod
+    def validate_email(email):
+        # regex email validation
+        pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+        return re.match(pattern, email) is not None

@@ -1,17 +1,18 @@
-from src.interfaces.Contact import Name, Phone, Birthday,Address
-import datetime
-
+from src.interfaces.Contact import Email, Name, Phone, Birthday,Address
+from datetime import datetime
 
 class Record:
     def __init__(self, name):
         self.name = Name(name)
-        self.phones = []
+        # refactor to use a list of phones
+        self.phones = None
         self.birthday = None
         self.address = None
+        self.email = None
 
     def add_phone(self, phone_number):
-        phone = Phone(phone_number)
-        self.phones.append(phone)
+        self.phones = Phone(phone_number)
+   
 
     def remove_phone(self, phone_number):
         for phone in self.phones:
@@ -20,12 +21,9 @@ class Record:
                 return f"Phone {phone_number} removed."
         return f"Phone {phone_number} not found."
 
-    def edit_phone(self, old_phone, new_phone):
-        for phone in self.phones:
-            if phone.value == old_phone:
-                phone.value = new_phone
-                return f"Phone {old_phone} changed to {new_phone}."
-        return f"Phone {old_phone} not found."
+    def edit_phone(self,new_phone):
+        self.phones.value = new_phone
+        return f"Phone changed to {new_phone}."
     
     def add_address(self, address):
         self.address = Address(address)
@@ -48,6 +46,17 @@ class Record:
     def delete_birthday(self):
         del self.birthday
         return "Birthday deleted." 
+    
+    def add_email(self, email):
+        self.email = Email(email)
+    
+    def change_email(self, new_email):
+        self.email.value = new_email
+        return f"Email changed to {new_email}."
+    
+    def delete_email(self):
+        del self.email
+        return "Email deleted."
 
     # refactor to use value + date.today for searching next birthday with a value
     def days_to_birthday(self,value):
@@ -60,6 +69,11 @@ class Record:
         return (next_birthday - today).days
     
     def __str__(self):
-        phones = "; ".join(p.value for p in self.phones)
-        birthday = f", birthday: {self.birthday}" if self.birthday else ""
-        return f"Contact name: {self.name.value}, phones: {phones}{birthday}"
+            phones = self.phones.value
+            birthday = ""
+            if self.birthday:
+                birthday = f", birthday: {self.birthday.value.strftime('%d.%m.%Y')}"  
+            address = f", address: {self.address.value}" if self.address else ""
+            email = f", email: {self.email.value}" if self.email else ""
+            
+            return f"Contact name: {self.name.value}, phone: {phones}{birthday}{address}{email}"
