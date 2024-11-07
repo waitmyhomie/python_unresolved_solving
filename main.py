@@ -3,6 +3,7 @@ from src.functions.AddressBookFunctions import (
     show_birthday, show_birthdays_future,
     load_data, save_data, parse_input
 )
+from SearchContact import SearchContact  # Імпортуємо SearchContact
 from colorama import init, Fore, Style
 
 init(autoreset=True)
@@ -18,11 +19,13 @@ def show_help():
 {Fore.GREEN}6. show-bdays {Fore.YELLOW}[days]{Style.RESET_ALL} - Show contacts with upcoming birthdays within a specified number of days.
 {Fore.GREEN}7. help{Style.RESET_ALL} - Show this help message.
 {Fore.GREEN}8. close or exit{Style.RESET_ALL} - Save data and close the assistant.
+{Fore.GREEN}9. find {Fore.YELLOW}[name]{Style.RESET_ALL} - Find a contact by name.
 """
     print(commands)
 
 def main():
     book = load_data()
+    search_contact = SearchContact(book)  # Створюємо екземпляр класу SearchContact
     print(f"{Fore.YELLOW}Welcome to the assistant bot!{Style.RESET_ALL}")
     show_help()  
 
@@ -62,6 +65,12 @@ def main():
                     print(f"{Fore.RED}Not enough arguments. Usage: show-bdays [days]{Style.RESET_ALL}")
                     continue
                 print(show_birthdays_future(args, book))
+
+            elif command == "find": #команда пошуку контактів
+                if not args:
+                    print(f"{Fore.RED}Not enough arguments. Usage: find [name]{Style.RESET_ALL}")
+                    continue
+                print(search_contact.find_contact_by_name(args[0]))
 
             else:
                 print(f"{Fore.RED}Invalid command. Type 'help' to see the list of available commands.{Style.RESET_ALL}")
