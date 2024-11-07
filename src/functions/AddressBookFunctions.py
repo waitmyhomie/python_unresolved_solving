@@ -188,7 +188,7 @@ def delete_contact(args, book):
     name = args[0]
     record = book.find(name)
     if record:
-        book.remove_record(name)
+        book.delete(name)
         return f"Contact {name} deleted."
     else:
         return f"Contact {name} not found."

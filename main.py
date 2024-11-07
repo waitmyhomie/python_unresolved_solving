@@ -39,8 +39,8 @@ def show_notes_help():
     commands = f"""
 {Fore.CYAN}Notes commands:
 {Fore.GREEN}1. note-add{Style.RESET_ALL} - Add a note.
-{Fore.GREEN}2. note-edit {Fore.YELLOW}[id] {Fore.YELLOW}[new_content]{Style.RESET_ALL} - Edit a note by ID.
-{Fore.GREEN}3. note-del {Fore.YELLOW}[id]{Style.RESET_ALL} - Delete a note by ID.
+{Fore.GREEN}2. note-edit {Style.RESET_ALL} - Edit a note by ID.
+{Fore.GREEN}3. note-del {Style.RESET_ALL} - Delete a note by ID.
 {Fore.GREEN}4. note-show{Style.RESET_ALL} - Show all notes.
 {Fore.GREEN}5. back{Style.RESET_ALL} - Go back to the main menu.
 {Fore.GREEN}6. help{Style.RESET_ALL} - Show this help message.
@@ -142,7 +142,6 @@ def notes_mode(notes):
                 print(f"{Fore.RED}Invalid ID format. Please enter a number.{Style.RESET_ALL}")
 
         elif command == "note-show":
-            print("Notes:")
             notes.show_notes()
 
         else:
