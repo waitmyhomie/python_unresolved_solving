@@ -42,6 +42,7 @@ def show_notes_help():
 {Fore.GREEN}2. note-edit {Style.RESET_ALL} - Edit a note by ID.
 {Fore.GREEN}3. note-del {Style.RESET_ALL} - Delete a note by ID.
 {Fore.GREEN}4. note-show{Style.RESET_ALL} - Show all notes.
+{Fore.GREEN}5. search{Style.RESET_ALL} - Write a text to find all notes matches.
 {Fore.GREEN}5. back{Style.RESET_ALL} - Go back to the main menu.
 {Fore.GREEN}6. help{Style.RESET_ALL} - Show this help message.
 {Fore.GREEN}7. close or exit{Style.RESET_ALL} - Save data and close the assistant.
@@ -143,6 +144,13 @@ def notes_mode(notes):
 
         elif command == "note-show":
             notes.show_notes()
+
+        elif command == "search":
+            text = input("Enter text to search: ").strip()
+            if text:
+                print(notes.find_note_by_text(text))
+            else:
+                print(f"{Fore.RED}Search text cannot be empty.{Style.RESET_ALL}")
 
         else:
             print(f"{Fore.RED}Unknown command. Try again.{Style.RESET_ALL}")

@@ -1,4 +1,6 @@
 import pickle
+import re
+from colorama import Fore, Style
 
 
 class Notes:
@@ -36,6 +38,26 @@ class Notes:
         else:
             for note_id, content in self.notes.items():
                 print(f"ID: {note_id} - {content}")
+
+    def find_note_by_text(self, text):
+        # Searches for notes by text
+        results = []
+        search_term_lower = text.lower()
+
+        for note_id, note_content in self.notes.items():
+            if search_term_lower in note_content.lower():
+                highlighted_text = re.sub(
+                    re.compile(re.escape(text), re.IGNORECASE),
+                    lambda match: f"{Fore.YELLOW}{match.group(0)}{Style.RESET_ALL}",
+                    note_content
+                )
+                formatted_note = f"ID: {note_id} - Text: {highlighted_text}"
+                results.append(formatted_note)
+
+        if results:
+            return "\n".join(results)
+        else:
+            return f"No notes found with the text '{text}'."
 
 
 def save_data_notes(book, filename="notesbook.pkl"):
