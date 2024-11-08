@@ -167,9 +167,10 @@ def edit_contact(args, book):
         record.name = Name(new_value)
         return f"Name changed to {new_value}."
     elif field == "email":
-        if Email.validate_email(new_value):
-            return record.change_email(new_value)
-        else:
+        try:
+            record.email = Email(new_value)
+            return f"Email updated to {new_value}."
+        except ValueError:
             return "Invalid email format."
     elif field == "birthday":
         try:
