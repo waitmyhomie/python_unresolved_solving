@@ -1,6 +1,6 @@
 from src.interfaces.AddressBook import AddressBook
 from src.interfaces.Record import Record
-from src.interfaces.Contact import Birthday, Email, Name, Phone
+from src.interfaces.Contact import Address, Birthday, Email, Name, Phone
 import pickle
 from datetime import datetime, timedelta
 import shlex    
@@ -143,7 +143,8 @@ def show_birthdays_future(args, book):
 def edit_contact(args, book):
     if len(args) < 3:
         return "Not enough arguments. Usage: edit [name] [field] [new_value]"
-
+    elif len(args) > 3:
+        return "Too many arguments. Usage: edit [name] [field] [new_value]"
     name, field, new_value = args
     record = book.find(name)
 
@@ -166,9 +167,10 @@ def edit_contact(args, book):
         record.name = Name(new_value)
         return f"Name changed to {new_value}."
     elif field == "email":
-        if Email.validate_email(new_value):
-            return record.change_email(new_value)
-        else:
+        try:
+            record.email = Email(new_value)
+            return f"Email updated to {new_value}."
+        except ValueError:
             return "Invalid email format."
     elif field == "birthday":
         try:
@@ -177,7 +179,11 @@ def edit_contact(args, book):
         except ValueError:
             return "Invalid date format. Use DD.MM.YYYY."
     elif field == "address":
-        return record.edit_address(new_value)
+        try:
+            record.address = Address(new_value)
+            return f"Address updated to {new_value}."
+        except ValueError:
+            return "Invalid address format` (should be a string)."
     else:
         return f"Field {field} not recognized."
     
@@ -188,7 +194,7 @@ def delete_contact(args, book):
     name = args[0]
     record = book.find(name)
     if record:
-        book.remove_record(name)
+        book.delete(name)
         return f"Contact {name} deleted."
     else:
         return f"Contact {name} not found."
