@@ -1,6 +1,6 @@
 from src.interfaces.AddressBook import AddressBook
 from src.interfaces.Record import Record
-from src.interfaces.Contact import Birthday, Email, Name, Phone
+from src.interfaces.Contact import Address, Birthday, Email, Name, Phone
 import pickle
 from datetime import datetime, timedelta
 import shlex    
@@ -178,7 +178,11 @@ def edit_contact(args, book):
         except ValueError:
             return "Invalid date format. Use DD.MM.YYYY."
     elif field == "address":
-        return record.edit_address(new_value)
+        try:
+            record.address = Address(new_value)
+            return f"Address updated to {new_value}."
+        except ValueError:
+            return "Invalid address format` (should be a string)."
     else:
         return f"Field {field} not recognized."
     
