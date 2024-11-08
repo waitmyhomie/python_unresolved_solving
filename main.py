@@ -22,7 +22,7 @@ def show_main_help():
 def show_contact_help():
     commands = f"""
 {Fore.CYAN}Contact book commands:
-{Fore.GREEN}1. create {Fore.YELLOW}[name] {Fore.YELLOW}[phone] {Fore.YELLOW}[birthday (optional)] {Fore.YELLOW}[address (optional)] {Fore.YELLOW}[email (optional)]{Style.RESET_ALL} - Add a new contact.
+{Fore.GREEN}1. create {Fore.YELLOW}[name] {Fore.YELLOW}[phone] {Fore.YELLOW}[birthday (optional)] {Fore.YELLOW}[address (optional: f.e "address" {Fore.YELLOW}For addresses with spaces, quotation marks are mandatory.)] {Fore.YELLOW}[email (optional)]{Style.RESET_ALL} - Add a new contact.
 {Fore.GREEN}2. edit {Fore.YELLOW}[name] {Fore.YELLOW}[field] {Fore.YELLOW}[new_value]{Style.RESET_ALL} - Add or edit a contact's information (fields: phone, name, email, birthday, address).
 {Fore.GREEN}3. del {Fore.YELLOW}[name]{Style.RESET_ALL} - Delete a contact by name.
 {Fore.GREEN}4. show-all{Style.RESET_ALL} - Show all contacts in the address book.
