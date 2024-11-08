@@ -143,7 +143,8 @@ def show_birthdays_future(args, book):
 def edit_contact(args, book):
     if len(args) < 3:
         return "Not enough arguments. Usage: edit [name] [field] [new_value]"
-
+    elif len(args) > 3:
+        return "Too many arguments. Usage: edit [name] [field] [new_value]"
     name, field, new_value = args
     record = book.find(name)
 

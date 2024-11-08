@@ -1,6 +1,6 @@
-# Address Book Assistant
+# Contact Notes Bot
 
-This is an Address Book Assistant project that helps you manage your contacts, including adding, editing, deleting contacts, and displaying upcoming birthdays.
+This is a Contact Notes Bot project that helps you manage your contacts and notes, including adding, editing, deleting contacts, displaying upcoming birthdays, and managing notes.
 
 ## Getting Started
 
